@@ -11,13 +11,13 @@ void main()
 	cout << "go size array: "; cin >> n;
 	int* arr = new int[n];
 	FillRand(arr, n);
-	Print(arr, n);	
+	Print(arr, n);
 	delete[]arr;
 }
 void FillRand(int arr[], const int n)
 {
 	for (int i = 0; i < n; i++)
-	{
+	{//от 0 до 100 надо
 		*(arr + i) = rand() % 100; //Через арифметику указателей и оператор разыменования
 	}
 }
