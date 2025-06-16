@@ -6,8 +6,8 @@ using std::endl;
 
 #define DATATYPE double
 typedef int DataType;
-//#define DYNAMIC_MEMORY_1
-#define DYNAMIC_MEMORY_2
+#define DYNAMIC_MEMORY_1
+//#define DYNAMIC_MEMORY_2
 #define tab "\t"
 
 template<typename T>T** Allocate(const int rows, const int cols);
@@ -25,9 +25,9 @@ template<typename T> T* push_front(T arr[], int& n, const T value);
 template<typename T> T* pop_back(T arr[], int& n);
 template<typename T> T* pop_front(T arr[], int& n);
 
-template<typename T> T* insert(T arr[], int& n, const T value, const T index);
+template<typename T> T* insert(T arr[], int& n, const T value, const int index);
 int* replacement(int arr[], int& n, int value, int index);
-int* erase(int arr[], int& n, int index);
+template<typename T>T* erase(T arr[], int& n, int index);
 
 template<typename T>T** push_row_back(T** arr, int& rows, const int cols);
 template<typename T>T** push_row_front(T** arr, int& rows, const int cols);
@@ -73,11 +73,12 @@ void main()
 	//insert - добавляет значение раздвигая под него массив
 	int index;
 	cout << "Введите добавляемое значение и индекс: "; cin >> value >> index;
-	Print(arr = insert(arr, n, value, index), n);
+	arr = insert(arr, n, value, index);
+	Print(arr, n);
 
 	//replacement - заменяет значение по индексу
 	cout << "Введите заменяемое значение и индекс: "; cin >> value >> index;
-	arr = replacement(arr, n, value, index);
+	//arr = replacement(arr, n, value, index);
 	Print(arr, n);
 
 	//erase - удаляет значение/элемент массива по индексу
@@ -206,7 +207,7 @@ template<typename T>T** insert_row(T** arr, int& rows, const int cols, int indx)
 	return buffer;
 }
 
-int** pop_row_back(int** arr, int& rows, const int cols)
+template<typename T>T** pop_row_back(int** arr, int& rows, const int cols)
 {
 	int** buffer = new int* [rows - 1];
 	for (int i = 0; i < rows - 1; i++)buffer[i] = arr[i];
@@ -396,7 +397,7 @@ template<typename T>T* pop_front(T arr[], int& n)
 	return buffer;
 }
 
-template<typename T>T* insert(T arr[], int& n, const T value, const T index)
+template<typename T>T* insert(T arr[], int& n, const T value, const int index)
 {
 	T* buffer = new T[++n]{};
 	for (int i = 0; i < n; i++)i < index ? buffer[i] = arr[i] : buffer[i + 1] = arr[i];
@@ -411,7 +412,7 @@ int* replacement(int arr[], int& n, int value, int index)
 	return arr;
 }
 
-int* erase(int arr[], int& n, int index)
+template<typename T>T* erase(T arr[], int& n, int index)
 {
 	int* buffer = new int[--n];
 	for (int i = 0; i < n; i++) i < index ? buffer[i] = arr[i] : buffer[i] = arr[i + 1];
